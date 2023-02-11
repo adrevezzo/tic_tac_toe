@@ -1,6 +1,4 @@
-from board import Board
-from players import Player
-import os
+
 
 def initialize_game():
     print("\nWelcome to Tic Tac Toe")
@@ -12,6 +10,12 @@ def initialize_game():
 
     return cur_game, pX, pO, active_player
 
+
+def play_again():
+    play_again = input("\nPlay Again? (y/n) ").upper()
+    
+    if play_again in ('Y', 'y', 'yes'):
+        return game()
 
 def game():
     cur_game, pX, pO, active_player = initialize_game()
@@ -32,18 +36,13 @@ def game():
                 if check_result[1] == "win":
                     print(f"\nPlayer {active_player.marker} Wins!")
                     playing = check_result[0]
-                    play_again = input("\nPlay Again? (y/n) ").upper()
-                    
-                    if play_again in ('Y', 'y', 'yes'):
-                        game()
+                    play_again()
+
                 
                 elif check_result[1] == "draw":
                     print("No moves remaining. Draw. Thanks for playing!")
                     playing = check_result[0]
-                    play_again = input("\nPlay Again? (y/n) ").upper()
-
-                    if play_again in ('Y', 'y', 'yes'):
-                        game()
+                    play_again()
 
                 if active_player == pX:
                     active_player = pO
