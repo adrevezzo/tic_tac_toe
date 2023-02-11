@@ -1,6 +1,7 @@
 from board import Board
 from players import Player
 
+
 print("Welcome to Tic Tac Toe")
 cur_game = Board()
 cur_game.show_board()
@@ -9,8 +10,9 @@ pX = Player("X")
 pO = Player("O")
 active_player = pX
 
-playing = True
 
+
+playing = True
 while playing:
     cur_game.show_available_moves()
     try:
@@ -21,6 +23,9 @@ while playing:
         else:
             cur_game.post_move(move, active_player.marker)
             playing = cur_game.game_check()
+            if playing == False:
+                print(f"\nPlayer {active_player.marker} Wins!")
+
             if active_player == pX:
                 active_player = pO
             else:
@@ -30,7 +35,5 @@ while playing:
         print("\nPlease enter a valid number")
     except KeyError as ke:
         print("\nPlease enter one of the remaining available moves")
-
-
 
 

@@ -14,18 +14,6 @@ class Board:
             "bot_right": " "
         }
 
-        self.move_list = {
-            "1. Top Left": "top_left",
-            "2. Top Center": "top_mid",
-            "3. Top Right": "top_right",
-            "4. Middle Left": "mid_left",
-            "5. Center": "mid_mid",
-            "6. Middle Right": "mid_right",
-            "7. Bottom Left": "bot_left",
-            "8. Bottom Center": "bot_mid",
-            "9. Bottom Right": "bot_right",
-        }
-
         self.move_helper = {
             1:["1. Top Left", "top_left"],
             2:["2. Top Center", "top_mid"],
@@ -37,6 +25,61 @@ class Board:
             8:["8. Bottom Center", "bot_mid"],
             9:["9. Bottom Right", "bot_right"],
         }
+
+
+    def update_combos(self):
+        self.left_column = [
+            self.board_positions.get("top_left"),
+            self.board_positions.get("mid_left"),
+            self.board_positions.get("bot_left")
+        ]
+
+        self.mid_column = [
+            self.board_positions.get("top_mid"),
+            self.board_positions.get("mid_mid"),
+            self.board_positions.get("bot_mid")
+        ]
+
+        self.right_column = [
+            self.board_positions.get("top_right"),
+            self.board_positions.get("mid_right"),
+            self.board_positions.get("bot_right")
+        ]
+
+        self.top_row = [
+            self.board_positions.get("top_left"),
+            self.board_positions.get("top_mid"),
+            self.board_positions.get("top_right")
+        ]
+
+        self.mid_row = [
+            self.board_positions.get("mid_left"),
+            self.board_positions.get("mid_mid"),
+            self.board_positions.get("mid_right")
+        ]
+
+        self.bottom_row = [
+            self.board_positions.get("bot_left"),
+            self.board_positions.get("bot_mid"),
+            self.board_positions.get("bot_right")
+        ]
+
+        self.left_diagonal = [
+            self.board_positions.get("top_left"),
+            self.board_positions.get("mid_mid"),
+            self.board_positions.get("bot_right")
+        ]
+
+        self.right_diagonal = [
+            self.board_positions.get("top_right"),
+            self.board_positions.get("mid_mid"),
+            self.board_positions.get("bot_left")
+        ]
+
+        self.combos = [self.left_column, self.mid_column, self.right_column, self.top_row,
+                       self.mid_row, self.bottom_row, self.left_diagonal, self.right_diagonal]
+        
+        return self.combos
 
 
     def show_board(self):
@@ -67,4 +110,15 @@ class Board:
         if len(self.move_helper) == 0:
             print("No moves remaining. Draw. Thanks for playing!")
             return False
+
+        for combo in self.update_combos():
+            result = self.check_combo(combo)
+            if not result:
+                return result
         return True
+
+    def check_combo(self,combo):
+        if " " not in combo and len(set(combo)) == 1:
+            return False
+        return True
+
