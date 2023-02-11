@@ -20,6 +20,7 @@ while playing:
             playing = False
         else:
             cur_game.post_move(move, active_player.marker)
+            playing = cur_game.game_check()
             if active_player == pX:
                 active_player = pO
             else:
