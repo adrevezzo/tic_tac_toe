@@ -1,3 +1,5 @@
+import os
+
 class Board:
     def __init__(self) -> None:
         self.board_positions = {
@@ -51,11 +53,12 @@ class Board:
     
     def show_available_moves(self):
         print("Available Moves:")
-        for key in self.move_list.keys():
-            print(key)
+        for key,value in self.move_helper.items():
+            print(value[0])
 
-    def post_move(self, position, player):
-        move = self.move_list[position]
-        self.board_positions[move] = player
-        self.move_list.pop(position)
+    def post_move(self, move_number, player):
+        os.system('clear')
+        move = self.move_helper[move_number]
+        self.board_positions[move[1]] = player
+        self.move_helper.pop(move_number)
         self.show_board()
