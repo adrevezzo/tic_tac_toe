@@ -24,6 +24,7 @@ class GameBrain:
         
             self.cur_game.show_board()
             self.cur_game.show_available_moves()
+            
             try:
                 move = int(input(f"\nPlayer {self.active_player.marker} Move (0-9): "))
                 if move == 99:
