@@ -1,21 +1,29 @@
 from board import Board
+from players import Player
 
 print("Welcome to Tic Tac Toe")
 cur_game = Board()
 cur_game.show_board()
 
+pX = Player("X")
+pO = Player("O")
+active_player = pX
 
 playing = True
 
 while playing:
     cur_game.show_available_moves()
     try:
-        pX = int(input("\nPlayer X Move (0-9): "))
-        if pX == 99:
+        move = int(input(f"\nPlayer {active_player.marker} Move (0-9): "))
+        if move == 99:
             print("Thanks for playing!")
             playing = False
         else:
-            cur_game.post_move(pX,"x")
+            cur_game.post_move(move, active_player.marker)
+            if active_player == pX:
+                active_player = pO
+            else:
+                active_player = pX
 
     except ValueError as ve:
         print("\nPlease enter a valid number")
