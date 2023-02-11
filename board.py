@@ -104,18 +104,17 @@ class Board:
         move = self.move_helper[move_number]
         self.board_positions[move[1]] = player
         self.move_helper.pop(move_number)
-        self.show_board()
+        # self.show_board()
 
     def game_check(self):
         if len(self.move_helper) == 0:
-            print("No moves remaining. Draw. Thanks for playing!")
-            return False
+            return False, "draw"
 
         for combo in self.update_combos():
             result = self.check_combo(combo)
             if not result:
-                return result
-        return True
+                return result, "win"
+        return True, "play"
 
     def check_combo(self,combo):
         if " " not in combo and len(set(combo)) == 1:
